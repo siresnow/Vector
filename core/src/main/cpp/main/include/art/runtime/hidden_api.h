@@ -40,6 +40,7 @@ namespace art {
 
         inline void
         maybeSetTrusted(JNIEnv *env, jclass clazz, jobject class_loader, jobject j_***REMOVED***) {
+            if (env->ExceptionCheck()) return;
             static auto get_parent = env->GetMethodID(env->FindClass("java/lang/ClassLoader"),
                                                       "getParent", "()Ljava/lang/ClassLoader;");
             for (auto current = lspd::Context::GetInstance()->GetCurrentClassLoader();
