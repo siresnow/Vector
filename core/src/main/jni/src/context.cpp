@@ -87,7 +87,7 @@ namespace lspd {
                 LOGE("Failed to get ***REMOVED***");
                 return;
             }
-            lsplant::MakeDexFileTrusted(env, ***REMOVED***);
+            lsplant::MakeDexFileTrusted(env, ***REMOVED***.get());
         }
         RegisterResourcesHook(env);
         RegisterHookBridge(env);
