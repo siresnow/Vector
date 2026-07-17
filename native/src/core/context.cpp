@@ -45,7 +45,7 @@ void Context::InitHooks(JNIEnv *env) {
     // -------------------------------------------------------------------------
     // We traverse the DexPathList of the injected ClassLoader to access the
     // underlying 'mCookie' for every loaded DEX file.
-    // The ***REMOVED*** provides a handle to the native C++ DexFile object in ART memory.
+    // The ***cookie*** provides a handle to the native C++ DexFile object in ART memory.
 
     // Retrieve the DexPathList object (holds the array of DEX elements).
     auto path_list = lsplant::JNI_GetObjectFieldOf(env, inject_class_loader_, "pathList",
@@ -79,9 +79,9 @@ void Context::InitHooks(JNIEnv *env) {
 
         // Retrieve the 'mCookie'. In ART, this field stores the pointer (as a long or object)
         // to the internal native DexFile structure.
-        auto ***REMOVED*** =
+        auto cookie =
             lsplant::JNI_GetObjectFieldOf(env, java_dex_file, "mCookie", "Ljava/lang/Object;");
-        if (!***REMOVED***) {
+        if (!cookie) {
             LOGW("InitHooks: Could not retrieve 'mCookie' (native handle) from DexFile.");
             continue;
         }
@@ -89,7 +89,7 @@ void Context::InitHooks(JNIEnv *env) {
         // Attempt to modify the internal ART flags for this DEX file.
         // This effectively whitelists the DEX file, treating it as if it were part of
         // the BootClassPath, thereby bypassing Hidden API enforcement policies.
-        if (lsplant::MakeDexFileTrusted(env, ***REMOVED***.get())) {
+        if (lsplant::MakeDexFileTrusted(env, cookie.get())) {
             LOGD("InitHooks: Successfully elevated trust privileges for DexFile.");
         } else {
             LOGW("InitHooks: Failed to elevate trust privileges for DexFile.");
