@@ -495,8 +495,8 @@ VECTOR_DEF_NATIVE_METHOD(jboolean, HookBridge, instanceOf, jobject object, jclas
 /**
  * @brief JNI wrapper to mark a DEX file loaded from memory as trusted.
  */
-VECTOR_DEF_NATIVE_METHOD(jboolean, HookBridge, setTrusted, jobject ***REMOVED***) {
-    return lsplant::MakeDexFileTrusted(env, ***REMOVED***);
+VECTOR_DEF_NATIVE_METHOD(jboolean, HookBridge, setTrusted, jobject cookie) {
+    return lsplant::MakeDexFileTrusted(env, cookie);
 }
 
 /**
