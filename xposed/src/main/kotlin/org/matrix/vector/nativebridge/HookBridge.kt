@@ -52,7 +52,7 @@ object HookBridge {
 
     @JvmStatic @FastNative external fun instanceOf(obj: Any?, clazz: Class<*>): Boolean
 
-    @JvmStatic @FastNative external fun setTrusted(***REMOVED***: Any?): Boolean
+    @JvmStatic @FastNative external fun setTrusted(cookie: Any?): Boolean
 
     @JvmStatic
     external fun callbackSnapshot(hooker_callback: Class<*>, method: Executable): Array<Array<Any?>>
