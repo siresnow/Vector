@@ -1,3 +1,4 @@
+import android.util.Log
 package org.matrix.vector.daemon.data
 
 import android.content.ContentValues
@@ -94,9 +95,14 @@ object PreferenceStore {
   fun isVerboseLogEnabled(): Boolean =
       getModulePrefs("lspd", 0, "config")["enable_verbose_log"] as? Boolean ?: true
 
-  fun setVerboseLog(enabled: Boolean) =
-      updateModulePref("lspd", 0, "config", "enable_verbose_log", enabled)
-
+  fun isVerboseLogEnabled(): Boolean {
+  return try {
+    getModulePrefs("lspd", 0, "config")["enable_verbose_log"] as? Boolean ?: true
+  } catch (e: Exception) {
+    Log.e(TAG, "Unable to read verbose-log preference; continuing with verbose logging", e)
+    true
+  }
+}
   fun isScopeRequestBlocked(pkg: String): Boolean =
       (getModulePrefs("lspd", 0, "config")["scope_request_blocked"] as? Set<*>)?.contains(pkg) ==
           true
