@@ -19,7 +19,7 @@ object DexTrustHooker : XposedInterface.Hooker {
 
         while (classLoader != null) {
             if (classLoader === DexTrustHooker::class.java.classLoader) {
-                // Inform the native bridge that this DEX ***REMOVED*** is safe
+                // Inform the native bridge that this DEX cookie is safe
                 HookBridge.setTrusted(result)
                 break
             }
