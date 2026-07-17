@@ -1,6 +1,5 @@
-import android.util.Log
 package org.matrix.vector.daemon.data
-
+import android.util.Log
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import org.apache.commons.lang3.SerializationUtilsX
@@ -92,17 +91,19 @@ object PreferenceStore {
   fun setStatusNotification(enabled: Boolean) =
       updateModulePref("lspd", 0, "config", "enable_status_notification", enabled)
 
-  fun isVerboseLogEnabled(): Boolean =
-      getModulePrefs("lspd", 0, "config")["enable_verbose_log"] as? Boolean ?: true
 
-  fun isVerboseLogEnabled(): Boolean {
-  return try {
-    getModulePrefs("lspd", 0, "config")["enable_verbose_log"] as? Boolean ?: true
-  } catch (e: Exception) {
-    Log.e(TAG, "Unable to read verbose-log preference; continuing with verbose logging", e)
-    true
+  fun   fun isVerboseLogEnabled(): Boolean {
+    return try {
+      getModulePrefs("lspd", 0, "config")["enable_verbose_log"] as? Boolean ?: true
+    } catch (e: Exception) {
+      Log.e(
+          TAG,
+          "Unable to read verbose-log preference; continuing with verbose logging",
+          e)
+      true
+    }
   }
-}
+
   fun isScopeRequestBlocked(pkg: String): Boolean =
       (getModulePrefs("lspd", 0, "config")["scope_request_blocked"] as? Set<*>)?.contains(pkg) ==
           true
