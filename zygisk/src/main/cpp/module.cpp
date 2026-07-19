@@ -392,9 +392,9 @@ void VectorModule::postServerSpecialize(const zygisk::ServerSpecializeArgs *args
 
     // --- Framework Injection for System Server ---
     auto &ipc_bridge = IPCBridge::GetInstance();
-    std::string bridgeServiceName = "serial";
-    bool is_late_inject = (args->runtime_flags & RuntimeFlags::LATE_INJECT) != 0;
-    if (is_late_inject) bridgeServiceName = "serial_vector";
+   // Force late-injection mode for ReZygisk compatibility.
+const bool is_late_inject = true;
+const std::string bridgeServiceName = "serial_vector";
     auto system_binder = ipc_bridge.RequestSystemServerBinder(env_, bridgeServiceName);
     if (!system_binder) {
         LOGE("Failed to get system server IPC binder. Aborting injection.");
