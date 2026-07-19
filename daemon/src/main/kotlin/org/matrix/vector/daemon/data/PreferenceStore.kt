@@ -105,6 +105,9 @@ object PreferenceStore {
     }
   }
 
+fun setVerboseLog(enabled: Boolean) =
+    updateModulePref("lspd", 0, "config", "enable_verbose_log", enabled)
+  
   fun isScopeRequestBlocked(pkg: String): Boolean =
       (getModulePrefs("lspd", 0, "config")["scope_request_blocked"] as? Set<*>)?.contains(pkg) ==
           true
